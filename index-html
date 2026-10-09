@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 320px;
+        }
+
+        #display {
+            width: 100%;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 2rem;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-operator {
+            background: #ff9f43;
+            color: white;
+        }
+
+        .btn-operator:hover {
+            background: #ff8811;
+        }
+
+        .btn-equal {
+            background: #2ed573;
+            grid-column: span 2;
+        }
+
+        .btn-equal:hover {
+            background: #26af5f;
+        }
+
+        .btn-clear {
+            background: #ff4757;
+        }
+
+        .btn-clear:hover {
+            background: #ff2b3b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button class="btn-clear" onclick="clearDisplay()">C</button>
+            <button onclick="deleteDigit()">DEL</button>
+            <button class="btn-operator" onclick="appendValue('/')">/</button>
+            <button class="btn-operator" onclick="appendValue('*')">*</button>
+            
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="btn-operator" onclick="appendValue('-')">-</button>
+            
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="btn-operator" onclick="appendValue('+')">+</button>
+            
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button class="btn-equal" onclick="calculate()">=</button>
+            
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendValue(val) {
+            display.value += val;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteDigit() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                // eval function math operations ko easily solve kar deta hai
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'Error';
+                setTimeout(clearDisplay, 1500);
+            }
+        }
+    </script>
+
+</body>
+</html>
